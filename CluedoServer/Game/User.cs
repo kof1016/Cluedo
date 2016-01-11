@@ -9,6 +9,8 @@ using Regulus.Game;
 using Regulus.Remoting;
 using Regulus.Utility;
 
+using Verify = Game.GPI_Implement.Verify;
+
 namespace Game
 {
 	public class User : IUser, IAccountStatus
@@ -78,7 +80,7 @@ namespace Game
 
 		void IUser.OnKick(Guid id)
 		{
-			_OnKickEvent.Invoke();
+			_OnKickEvent?.Invoke();
 		}
 
 		void IBootable.Shutdown()
@@ -103,16 +105,21 @@ namespace Game
 			_Machine.Push(stage);
 		}
 
-		private bool _VerifySuccess()
+		private void _VerifySuccess(bool result)
 		{
-			_OnVerifySuccessEvent.Invoke(new Guid());
+			_OnVerifySuccessEvent?.Invoke(new Guid());
 
-			return true;
+			_ToPlayStage();
+		}
+
+		private void _ToPlayStage()
+		{
+			//new PlayStage(_Binder);
 		}
 
 		private void _Quit()
 		{
-			_OnQuitEvent.Invoke();
+			_OnQuitEvent?.Invoke();
 		}
 	}
 }

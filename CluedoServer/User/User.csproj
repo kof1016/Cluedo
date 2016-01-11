@@ -56,6 +56,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CommandParser.cs" />
+    <Compile Include="IUser.cs" />
+    <Compile Include="RemotingUserFactory.cs" />
+    <Compile Include="StandalonguserFactory.cs" />
     <Compile Include="User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

@@ -1,15 +1,31 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Regulus.Framework;
+using Regulus.Utility;
+
+using User;
 
 namespace Console
 {
-	class Program
+	internal class Program
 	{
-		static void Main(string[] args)
+		public static void Main(string[] args)
 		{
+			var view = new ConsoleViewer();
+			var input = new ConsoleInput(view);
+
+			// var core = _LoadGame("Game.dll");
+			var client = new Client<IUser>(view, input);
+			client.ModeSelectorEvent += new ModeCreator().Select;
+
+			var updater = new Updater();
+			updater.Add(client);
+
+			while(client.Enable)
+			{
+				input.Update();
+				updater.Working();
+			}
+
+			updater.Shutdown();
 		}
 	}
 }

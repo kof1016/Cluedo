@@ -1,4 +1,6 @@
-﻿using Regulus.Framework;
+﻿using System.IO;
+
+using Regulus.Framework;
 using Regulus.Game;
 using Regulus.Remoting;
 using Regulus.Utility;
@@ -18,6 +20,15 @@ namespace CluedoServer
 			_Hall = new Hall();
 			_Machine = new StageMachine();
 			_Updater = new Updater();
+
+			
+		}
+
+		
+
+		private void _BuildParams()
+		{
+			var config = new Ini(File.ReadAllText("config.ini"));
 		}
 
 		/// <summary>

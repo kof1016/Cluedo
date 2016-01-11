@@ -2,6 +2,8 @@ using System;
 
 using Common;
 
+using Game.GPI_Implement;
+
 using Regulus.Remoting;
 using Regulus.Utility;
 
@@ -9,7 +11,7 @@ namespace Game
 {
 	public class VerifyStage : IStage
 	{
-		public event Verify.DoneCallback OnDoneEvent;
+		public event Action<bool> OnDoneEvent; 
 
 		private readonly ISoulBinder _Binder;
 
@@ -23,14 +25,21 @@ namespace Game
 
 		void IStage.Enter()
 		{
-			_Verify.OnDoneEvent += OnDoneEvent;
+			_Verify.OnDoneEvent += _Verify_OnDoneEvent;
 			_Binder.Bind<IVerify>(_Verify);
+		}
+
+		private bool _Verify_OnDoneEvent()
+		{
+			OnDoneEvent?.Invoke(true);
+
+            return true;
 		}
 
 		void IStage.Leave()
 		{
 			_Binder.Unbind<IVerify>(_Verify);
-			_Verify.OnDoneEvent -= OnDoneEvent;
+			_Verify.OnDoneEvent -= _Verify_OnDoneEvent;
 		}
 
 		void IStage.Update()

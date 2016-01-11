@@ -4,13 +4,11 @@ using Common;
 
 using Regulus.Remoting;
 
-namespace Game
+namespace Game.GPI_Implement
 {
 	public class Verify : IVerify
 	{
-		public delegate bool DoneCallback();
-
-		public event DoneCallback OnDoneEvent;
+		public event Func<bool> OnDoneEvent;
 
 		Value<bool> IVerify.Login(string id, string password)
 		{
