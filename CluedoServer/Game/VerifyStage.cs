@@ -2,49 +2,52 @@ using System;
 
 using Common;
 
-using Game.GPI_Implement;
-
 using Regulus.Remoting;
 using Regulus.Utility;
 
 namespace Game
 {
-	public class VerifyStage : IStage
+	public class VerifyStage : IStage, IVerify
 	{
-		public event Action<bool> OnDoneEvent; 
+		public event Action<Account> OnDoneEvent;
+
+		public event Action OnFailEvent;
 
 		private readonly ISoulBinder _Binder;
 
-		private readonly Verify _Verify;
-
-		public VerifyStage(Verify verify, ISoulBinder binder)
+		public VerifyStage(ISoulBinder binder)
 		{
-			_Verify = verify;
 			_Binder = binder;
 		}
 
 		void IStage.Enter()
 		{
-			_Verify.OnDoneEvent += _Verify_OnDoneEvent;
-			_Binder.Bind<IVerify>(_Verify);
-		}
-
-		private bool _Verify_OnDoneEvent()
-		{
-			OnDoneEvent?.Invoke(true);
-
-            return true;
+			_Binder.Bind<IVerify>(this);
 		}
 
 		void IStage.Leave()
 		{
-			_Binder.Unbind<IVerify>(_Verify);
-			_Verify.OnDoneEvent -= _Verify_OnDoneEvent;
+			_Binder.Unbind<IVerify>(this);
 		}
 
 		void IStage.Update()
 		{
-			
+		}
+
+		Value<bool> IVerify.Login(string id, string password)
+		{
+			var returnValue = new Value<bool>();
+
+			OnDoneEvent?.Invoke(new Account
+									{
+											Id = new Guid(id), 
+											Password = password, 
+											Name = "test"
+									});
+
+			returnValue.SetValue(true);
+
+			return returnValue;
 		}
 	}
 }

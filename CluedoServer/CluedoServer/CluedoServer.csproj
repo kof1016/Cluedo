@@ -66,11 +66,15 @@
     <Compile Include="Server.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="packages.config" />
+    <None Include="packages.config">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Server.exe.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Server.exe" />
+    <Content Include="Server.exe">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Server.pdb" />
   </ItemGroup>
   <ItemGroup>

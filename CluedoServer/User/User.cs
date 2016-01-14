@@ -1,4 +1,6 @@
-﻿using Common;
+﻿using System;
+
+using Common;
 
 using Regulus.Framework;
 using Regulus.Remoting;
@@ -22,6 +24,8 @@ namespace User
 		}
 
 		Regulus.Remoting.User IUser.Remoting => _User;
+
+		INotifier<IAccountStatus> IUser.AccountStatusProvider => _Agent.QueryNotifier<IAccountStatus>();
 
 		INotifier<IVerify> IUser.VerifyProvider => _Agent.QueryNotifier<IVerify>();
 

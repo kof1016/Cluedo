@@ -10,5 +10,7 @@ namespace User
 		Regulus.Remoting.User Remoting { get; }
 
 		INotifier<IVerify> VerifyProvider { get; }
+
+		INotifier<IAccountStatus> AccountStatusProvider { get; }
 	}
 }

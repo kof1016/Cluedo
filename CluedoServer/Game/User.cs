@@ -9,8 +9,6 @@ using Regulus.Game;
 using Regulus.Remoting;
 using Regulus.Utility;
 
-using Verify = Game.GPI_Implement.Verify;
-
 namespace Game
 {
 	public class User : IUser, IAccountStatus
@@ -98,23 +96,30 @@ namespace Game
 
 		private void _ToVerify()
 		{
-			var verify = new Verify();
+			var stage = new VerifyStage(_Binder);
 
-			var stage = new VerifyStage(verify, _Binder);
-			stage.OnDoneEvent += _VerifySuccess;
+			stage.OnDoneEvent += _VerifyDone;
+
+			stage.OnFailEvent += _VerifyFail;
+
 			_Machine.Push(stage);
 		}
 
-		private void _VerifySuccess(bool result)
+		private void _VerifyFail()
 		{
-			_OnVerifySuccessEvent?.Invoke(new Guid());
+			throw new SystemException("formula verify fail");
+		}
+
+		private void _VerifyDone(Account obj)
+		{
+			_OnVerifySuccessEvent?.Invoke(obj.Id);
 
 			_ToPlayStage();
 		}
 
 		private void _ToPlayStage()
 		{
-			//new PlayStage(_Binder);
+			// new PlayStage(_Binder);
 		}
 
 		private void _Quit()
