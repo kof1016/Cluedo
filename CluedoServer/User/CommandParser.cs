@@ -3,6 +3,7 @@
 using Regulus.Framework;
 using Regulus.Remoting;
 using Regulus.Utility;
+using Regulus.Extension;
 
 using Console = Regulus.Utility.Console;
 
@@ -32,15 +33,49 @@ namespace User
 		{
 			_CreateConnent(factory);
 			_CreateOnline(factory);
-		}
 
-		private void _CreateOnline(IGPIBinderFactory factory)
+		    _CreateVerify(factory);
+            _CreatePlayer(factory);
+        }
+
+	    private void _CreatePlayer(IGPIBinderFactory factory)
+	    {
+            var binder = factory.Create(_User.PlayerProvider);
+
+	        binder.Bind( gpi => gpi.GetStep() , _GetStepResult  );
+	    }
+
+	    private void _GetStepResult(Value<int> obj)
+	    {
+	        obj.OnValue += (step) =>
+	        {
+                _View.WriteLine($"Step is {step}");
+            };
+	    }
+
+	    private void _CreateVerify(IGPIBinderFactory factory)
+	    {
+            var binder = factory.Create(_User.VerifyProvider);
+            
+            binder.Bind<string , string , Regulus.Remoting.Value<bool> >( (gpi , id , password ) => gpi.Login(id , password) , _VerifyResult );
+            
+        }
+
+	    private void _VerifyResult(Regulus.Remoting.Value<bool> result)
+	    {
+	        result.OnValue += (success) =>
+	        {
+	            _View.WriteLine($"Verify Result {success}");
+	        };
+	    }
+
+	    private void _CreateOnline(IGPIBinderFactory factory)
 		{
 			var online = factory.Create(_User.Remoting.OnlineProvider);
 
 			online.Bind("ping", gpi => new CommandParamBuilder().Build(() => _View.WriteLine($"Ping :{gpi.Ping}")));
-
-			online.Bind(gpi => gpi.Disconnect());
+            
+            online.Bind(gpi => gpi.Disconnect());
 		}
 
 		private void _CreateConnent(IGPIBinderFactory factory)

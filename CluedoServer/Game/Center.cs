@@ -42,7 +42,7 @@ namespace Game
 
 		void IBootable.Shutdown()
 		{
-			
-		}
+            _Updater.Shutdown();
+        }
 	}
 }

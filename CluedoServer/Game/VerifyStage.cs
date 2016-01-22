@@ -44,7 +44,7 @@ namespace Game
 
 			OnDoneEvent?.Invoke(new Account
 			{
-				Id = new Guid(id),
+				Id = Guid.NewGuid(),
 				Password = password,
 				Name = "test"
 			});

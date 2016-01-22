@@ -24,6 +24,7 @@ namespace Game
 			_GameRoom = game_room;
 			_Weapon = new Weapon();
 			_Suspect = new Suspect();
+		    
 		}
 
 		Value<int> IPlayer.GetStep()
@@ -38,15 +39,35 @@ namespace Game
 		void IStage.Enter()
 		{
 			_Binder.Bind<IPlayer>(this);
-		}
+
+            _Binder.Bind<IMap>(_GameRoom);
+
+		    foreach(var player in _GameRoom.GetPlayers())
+		    {
+		        _Binder.Bind();
+		    }
+        }
 
 		void IStage.Leave()
 		{
-			_Binder.Unbind<IPlayer>(this);
+            
+            _Binder.Unbind<IPlayer>(this);
 		}
 
 		void IStage.Update()
 		{
 		}
 	}
+
+    internal interface IMap 
+    {
+         PlayerPosition[] PlayerPosition { get; }
+    }
+
+    internal class PlayerPosition
+    {
+        public Guid Id;
+        public int X;
+        public int Y;
+    }
 }

@@ -1,7 +1,10 @@
-﻿using Regulus.Framework;
+﻿using Common.GPI;
+
+using Regulus.Framework;
 using Regulus.Remoting;
 using Regulus.Remoting.Ghost.Native;
 using Regulus.Utility;
+using Regulus.Remoting;
 
 using User;
 
@@ -11,19 +14,26 @@ namespace Console
 	{
 		private ICore _Core;
 
-		public ModeCreator(ICore core)
-		{
-			_Core = core;
-		}
+	    private readonly Command _Command;
 
-		public void Select(GameModeSelector<IUser> selector)
+	    public ModeCreator(ICore core , Command command)
+	    {
+	        _Core = core;
+	        _Command = command;
+	    }
+
+	    public void Select(GameModeSelector<IUser> selector)
 		{
 			selector.AddFactoty("remoting", new RemotingUserFactory());
 			var provider = selector.CreateUserProvider("remoting");
 
-			provider.Spawn("1");
-			provider.Select("1");
+			var user = provider.Spawn("1");
+	        
+            provider.Select("1");
 		}
+
+
+	  
 	}
 
 	

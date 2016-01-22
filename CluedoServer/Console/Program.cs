@@ -19,9 +19,11 @@ namespace Console
 
 			var client = new Client<IUser>(view, input);
 
-			client.ModeSelectorEvent += new ModeCreator(core).Select;
+			client.ModeSelectorEvent += new ModeCreator(core , client.Command ).Select;
+			
+            
 
-			var updater = new Updater();
+            var updater = new Updater();
 			updater.Add(client);
 			updater.Add(core);
 

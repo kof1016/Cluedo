@@ -29,6 +29,8 @@ namespace Game
 			_CheckPlayerCount();
 		}
 
+	    
+
 		private void _CheckPlayerCount()
 		{
 			if(_Users.Count != _MaxPlayers)
@@ -37,6 +39,37 @@ namespace Game
 			}
 
 			OnToPlayEvent?.Invoke(this);
+
+
+		    _Run(_GetNextUser());
 		}
+
+	    public void Next()
+	    {
+            _Run(_GetNextUser());
+        }
+	    private void _Run(User next_user)
+	    {
+	        next_user.Play(this);
+	       // next_user.Done += () => { _Run(_GetNextUser()); };
+
+	        foreach(var user  in _Users)
+	        {
+                if(user == next_user)
+                    continue;
+	            
+	            user.View(this);
+	        }
+	    }
+
+	    public void Move()
+	    {
+	        
+	    }
+
+	    private User _GetNextUser()
+	    {
+	        throw new NotImplementedException();
+	    }
 	}
 }

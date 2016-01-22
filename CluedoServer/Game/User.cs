@@ -107,14 +107,26 @@ namespace Game
 
 		private void Room_OnToPlayEvent(GameRoom game_room)
 		{
-			var stage = new PlayStage(_Binder, game_room);
 
-			_Machine.Push(stage);
 		}
 
 		private void _Quit()
 		{
 			_OnQuitEvent?.Invoke();
 		}
+
+	    public void Play(GameRoom game_room)
+	    {
+            var stage = new PlayStage(_Binder, game_room);
+
+            _Machine.Push(stage);
+        }
+
+	    public void View(GameRoom game_room)
+	    {
+            var stage = new ViewStage(_Binder, game_room);
+
+            _Machine.Push(stage);
+        }
 	}
 }
