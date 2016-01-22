@@ -1,6 +1,8 @@
 using System;
 
 using Common;
+using Common.Data;
+using Common.GPI;
 
 using Regulus.Remoting;
 using Regulus.Utility;
@@ -12,6 +14,8 @@ namespace Game
 		public event Action<Account> OnDoneEvent;
 
 		public event Action OnFailEvent;
+
+		public GameRoom.DoneCallback OnToPlayEvent;
 
 		private readonly ISoulBinder _Binder;
 
@@ -39,11 +43,11 @@ namespace Game
 			var returnValue = new Value<bool>();
 
 			OnDoneEvent?.Invoke(new Account
-									{
-											Id = new Guid(id), 
-											Password = password, 
-											Name = "test"
-									});
+			{
+				Id = new Guid(id),
+				Password = password,
+				Name = "test"
+			});
 
 			returnValue.SetValue(true);
 

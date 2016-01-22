@@ -1,5 +1,6 @@
-﻿using Regulus.Framework;
-using Regulus.Game;
+﻿using Game;
+
+using Regulus.Framework;
 using Regulus.Remoting;
 using Regulus.Utility;
 
@@ -7,15 +8,16 @@ namespace CluedoServer
 {
 	public class Server : ICore
 	{
-		private readonly Hall _Hall;
-
 		private readonly StageMachine _Machine;
 
 		private readonly Updater _Updater;
 
+		private Center _Center;
+
+		private ICore _Core => _Center;
+
 		public Server()
 		{
-			_Hall = new Hall();
 			_Machine = new StageMachine();
 			_Updater = new Updater();
 		}
@@ -26,12 +28,12 @@ namespace CluedoServer
 		/// </summary>
 		void ICore.AssignBinder(ISoulBinder binder)
 		{
-			_Hall.PushUser(new Game.User(binder));
+			_Core.AssignBinder(binder);
 		}
 
 		void IBootable.Launch()
 		{
-			_Updater.Add(_Hall);
+			_ToPlay();
 		}
 
 		void IBootable.Shutdown()
@@ -44,6 +46,12 @@ namespace CluedoServer
 			_Updater.Working();
 			_Machine.Update();
 			return true;
+		}
+
+		private void _ToPlay()
+		{
+			_Center = new Center();
+			_Updater.Add(_Center);
 		}
 	}
 }

@@ -1,4 +1,5 @@
 ﻿using Common;
+using Common.GPI;
 
 using Regulus.Remoting;
 using Regulus.Utility;
@@ -12,5 +13,10 @@ namespace User
 		INotifier<IVerify> VerifyProvider { get; }
 
 		INotifier<IAccountStatus> AccountStatusProvider { get; }
+
+
+		INotifier<IPlayer> PlayerProvider { get; }
+
+
 	}
 }

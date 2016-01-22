@@ -38,11 +38,15 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="RegulusLibrary, Version=0.1.0.1, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\RegulusLibrary.0.1.8\lib\net35\RegulusLibrary.dll</HintPath>
+      <HintPath>..\packages\RegulusLibrary.0.1.9\lib\net35\RegulusLibrary.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="RegulusRemoting, Version=0.1.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\RegulusRemoting.0.1.2\lib\net35\RegulusRemoting.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="RegulusRemotingGhostNative, Version=0.1.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\RegulusRemotingClient.0.1.2\lib\net35\RegulusRemotingGhostNative.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
@@ -67,6 +71,10 @@
     <ProjectReference Include="..\Common\Common.csproj">
       <Project>{32a203c9-f441-41b1-b0f0-10516ec8ede1}</Project>
       <Name>Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Game\Game.csproj">
+      <Project>{a84d5147-8539-4fa9-9997-a26dd7210715}</Project>
+      <Name>Game</Name>
     </ProjectReference>
     <ProjectReference Include="..\User\User.csproj">
       <Project>{c2c7ac0c-1770-4f20-a840-dcbdca712f83}</Project>

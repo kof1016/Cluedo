@@ -2,7 +2,7 @@ using System;
 
 using ProtoBuf;
 
-namespace Common
+namespace Common.Data
 {
 	[ProtoContract]
 	public class Account

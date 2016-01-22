@@ -1,6 +1,6 @@
 using Regulus.Remoting;
 
-namespace Common
+namespace Common.GPI
 {
 	public interface IVerify
 	{

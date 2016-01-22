@@ -1,9 +1,8 @@
 ﻿using System;
-using System.Runtime.Remoting.Channels;
 
-using Common;
+using Common.Data;
+using Common.GPI;
 
-using Regulus.CustomType;
 using Regulus.Framework;
 using Regulus.Game;
 using Regulus.Remoting;
@@ -21,52 +20,37 @@ namespace Game
 
 		private readonly ISoulBinder _Binder;
 
+		private readonly GameLobby _GameLobby;
+
 		private readonly StageMachine _Machine;
 
-		public User(ISoulBinder binder)
+		public User(ISoulBinder binder, GameLobby game_lobby)
 		{
 			_Binder = binder;
+			_GameLobby = game_lobby;
 
 			_Machine = new StageMachine();
 		}
 
 		event Action IAccountStatus.OnKickEvent
 		{
-			add
-			{
-				_OnKickEvent += value;
-			}
+			add { _OnKickEvent += value; }
 
-			remove
-			{
-				_OnKickEvent -= value;
-			}
+			remove { _OnKickEvent -= value; }
 		}
 
 		event OnQuit IUser.QuitEvent
 		{
-			add
-			{
-				_OnQuitEvent += value;
-			}
+			add { _OnQuitEvent += value; }
 
-			remove
-			{
-				_OnQuitEvent -= value;
-			}
+			remove { _OnQuitEvent -= value; }
 		}
 
 		event OnNewUser IUser.VerifySuccessEvent
 		{
-			add
-			{
-				_OnVerifySuccessEvent += value;
-			}
+			add { _OnVerifySuccessEvent += value; }
 
-			remove
-			{
-				_OnVerifySuccessEvent -= value;
-			}
+			remove { _OnVerifySuccessEvent -= value; }
 		}
 
 		void IBootable.Launch()
@@ -114,12 +98,18 @@ namespace Game
 		{
 			_OnVerifySuccessEvent?.Invoke(obj.Id);
 
-			_ToPlayStage();
+			var room = _GameLobby.QueryRoom();
+
+			room.OnToPlayEvent += Room_OnToPlayEvent;
+
+			room.Join(this);
 		}
 
-		private void _ToPlayStage()
+		private void Room_OnToPlayEvent(GameRoom game_room)
 		{
-			// new PlayStage(_Binder);
+			var stage = new PlayStage(_Binder, game_room);
+
+			_Machine.Push(stage);
 		}
 
 		private void _Quit()

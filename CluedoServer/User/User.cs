@@ -1,6 +1,7 @@
 ﻿using System;
 
 using Common;
+using Common.GPI;
 
 using Regulus.Framework;
 using Regulus.Remoting;
@@ -28,6 +29,8 @@ namespace User
 		INotifier<IAccountStatus> IUser.AccountStatusProvider => _Agent.QueryNotifier<IAccountStatus>();
 
 		INotifier<IVerify> IUser.VerifyProvider => _Agent.QueryNotifier<IVerify>();
+
+		INotifier<IPlayer> IUser.PlayerProvider => _Agent.QueryNotifier<IPlayer>();
 
 		void IBootable.Launch()
 		{
