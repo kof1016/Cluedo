@@ -31,8 +31,5 @@ namespace Common.Data
 		public KIND Kind { get; set; }
 	}
 
-	public class Map
-	{
-		
-	}
+	
 }

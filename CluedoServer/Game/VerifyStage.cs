@@ -1,6 +1,5 @@
 using System;
 
-using Common;
 using Common.Data;
 using Common.GPI;
 
@@ -14,8 +13,6 @@ namespace Game
 		public event Action<Account> OnDoneEvent;
 
 		public event Action OnFailEvent;
-
-		public GameRoom.DoneCallback OnToPlayEvent;
 
 		private readonly ISoulBinder _Binder;
 

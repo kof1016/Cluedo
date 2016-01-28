@@ -4,7 +4,7 @@ using Regulus.Framework;
 using Regulus.Remoting;
 using Regulus.Utility;
 
-namespace CluedoServer
+namespace Server
 {
 	public class Server : ICore
 	{

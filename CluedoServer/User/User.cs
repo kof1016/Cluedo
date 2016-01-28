@@ -30,7 +30,11 @@ namespace User
 
 		INotifier<IVerify> IUser.VerifyProvider => _Agent.QueryNotifier<IVerify>();
 
+		INotifier<IBoardData> IUser.BoardProvider => _Agent.QueryNotifier<IBoardData>();
+
 		INotifier<IPlayer> IUser.PlayerProvider => _Agent.QueryNotifier<IPlayer>();
+
+		INotifier<IPosition> IUser.PositionProvider => _Agent.QueryNotifier<IPosition>();
 
 		void IBootable.Launch()
 		{

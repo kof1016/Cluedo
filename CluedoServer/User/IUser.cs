@@ -14,6 +14,9 @@ namespace User
 
 		INotifier<IAccountStatus> AccountStatusProvider { get; }
 
+		INotifier<IBoardData> BoardProvider { get; }
+
+		INotifier<IPosition> PositionProvider { get; }
 
 		INotifier<IPlayer> PlayerProvider { get; }
 

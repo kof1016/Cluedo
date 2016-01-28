@@ -7,7 +7,7 @@
     <ProjectGuid>{BB378B52-50B4-41C9-BF52-EB8A153F1720}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>CluedoServer</RootNamespace>
+    <RootNamespace>Server</RootNamespace>
     <AssemblyName>CluedoServer</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
@@ -69,13 +69,6 @@
     <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Server.exe.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Server.exe">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Server.pdb" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Common\Common.csproj">

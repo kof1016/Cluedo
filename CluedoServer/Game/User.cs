@@ -18,11 +18,15 @@ namespace Game
 
 		private event OnNewUser _OnVerifySuccessEvent;
 
+		public event Action OnDonePlayEvent;
+
 		private readonly ISoulBinder _Binder;
 
 		private readonly GameLobby _GameLobby;
 
 		private readonly StageMachine _Machine;
+
+		public PlayerPosition Position { get; set; }
 
 		public User(ISoulBinder binder, GameLobby game_lobby)
 		{
@@ -30,7 +34,9 @@ namespace Game
 			_GameLobby = game_lobby;
 
 			_Machine = new StageMachine();
-		}
+
+			Position = new PlayerPosition();
+        }
 
 		event Action IAccountStatus.OnKickEvent
 		{
@@ -100,14 +106,21 @@ namespace Game
 
 			var room = _GameLobby.QueryRoom();
 
-			room.OnToPlayEvent += Room_OnToPlayEvent;
+			room.OnToStartGameEvent += _OnToStartGame;
 
 			room.Join(this);
 		}
 
-		private void Room_OnToPlayEvent(GameRoom game_room)
+		private void _OnToStartGame(GameZone game_zone)
 		{
+			var stage = new LoadingMapStage(_Binder, game_zone);
+			stage.OnDoneEvent += _LoadingMapDone;
+			_Machine.Push(stage);
+		}
 
+		private void _LoadingMapDone(GameZone game_zone)
+		{
+			Play(game_zone);
 		}
 
 		private void _Quit()
@@ -115,18 +128,20 @@ namespace Game
 			_OnQuitEvent?.Invoke();
 		}
 
-	    public void Play(GameRoom game_room)
-	    {
-            var stage = new PlayStage(_Binder, game_room);
+		public void Play(GameZone game_zone)
+		{
+			var stage = new PlayStage(_Binder, game_zone);
 
-            _Machine.Push(stage);
-        }
+			stage.OnDoneEvent += () => { OnDonePlayEvent?.Invoke(); };
 
-	    public void View(GameRoom game_room)
-	    {
-            var stage = new ViewStage(_Binder, game_room);
+			_Machine.Push(stage);
+		}
 
-            _Machine.Push(stage);
-        }
+		public void View(GameZone game_zone)
+		{
+			var stage = new ViewStage(_Binder, game_zone);
+
+			_Machine.Push(stage);
+		}
 	}
 }

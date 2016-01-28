@@ -53,11 +53,17 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Data\Account.cs" />
+    <Compile Include="Data\GameBoard.cs" />
+    <Compile Include="Data\GridData.cs" />
+    <Compile Include="Data\Neighbor.cs" />
+    <Compile Include="Data\PlayerPosition.cs" />
     <Compile Include="Data\Suspect.cs" />
     <Compile Include="Data\RedBonusCard.cs" />
-    <Compile Include="Data\Room.cs" />
+    <Compile Include="Data\GridType.cs" />
     <Compile Include="Data\Weapon.cs" />
     <Compile Include="GPI\IAccountStatus.cs" />
+    <Compile Include="GPI\IPosition.cs" />
+    <Compile Include="GPI\IBoardData.cs" />
     <Compile Include="GPI\IPlayer.cs" />
     <Compile Include="GPI\IVerify.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

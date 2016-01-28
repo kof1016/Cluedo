@@ -6,17 +6,17 @@ namespace Game
 {
 	public class GameLobby
 	{
-		private readonly List<GameRoom> _GameRooms;
+		private readonly List<GameZone> _GameRooms;
 
 		public GameLobby()
 		{
-			_GameRooms = new List<GameRoom>
+			_GameRooms = new List<GameZone>
 			{
-				new GameRoom(new Guid())
+				new GameZone(new Guid())
 			};
 		}
 
-		public GameRoom QueryRoom()
+		public GameZone QueryRoom()
 		{
 			return _GameRooms.FirstOrDefault(x => x.Id == new Guid());
 		}
