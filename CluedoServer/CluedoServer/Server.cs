@@ -1,4 +1,8 @@
-﻿using Game;
+﻿using System.IO;
+
+using Common.Data;
+
+using Game;
 
 using Regulus.Framework;
 using Regulus.Remoting;
@@ -33,6 +37,7 @@ namespace Server
 
 		void IBootable.Launch()
 		{
+			_LoadData();
 			_ToPlay();
 		}
 
@@ -47,6 +52,13 @@ namespace Server
 			_Machine.Update();
 			return true;
 		}
+
+		private void _LoadData()
+		{
+			var buffer = File.ReadAllBytes("board.txt");
+			var gridDatas = Serialization.Read<GridData[]>(buffer);
+			Singleton<Resource>.Instance.Boards = gridDatas;
+        }
 
 		private void _ToPlay()
 		{

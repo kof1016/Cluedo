@@ -18,8 +18,6 @@ namespace Game
 
 		private event OnNewUser _OnVerifySuccessEvent;
 
-		public event Action OnDonePlayEvent;
-
 		private readonly ISoulBinder _Binder;
 
 		private readonly GameLobby _GameLobby;
@@ -132,7 +130,7 @@ namespace Game
 		{
 			var stage = new PlayStage(_Binder, game_zone);
 
-			stage.OnDoneEvent += () => { OnDonePlayEvent?.Invoke(); };
+			//stage.OnDoneEvent += () => { OnDonePlayEvent?.Invoke(); };
 
 			_Machine.Push(stage);
 		}

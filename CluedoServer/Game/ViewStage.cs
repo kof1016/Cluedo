@@ -1,5 +1,5 @@
 using System;
-
+using Common.Data;
 using Common.GPI;
 
 using Regulus.Remoting;
@@ -26,6 +26,7 @@ namespace Game
 		{
 			_Binder.Bind<IPosition>(_GameZone);
 		}
+
 
 		void IStage.Leave()
 		{

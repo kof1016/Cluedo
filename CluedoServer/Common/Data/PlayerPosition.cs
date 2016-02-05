@@ -11,9 +11,11 @@ namespace Common.Data
 		public Guid Id { get; set; }
 
 		[ProtoMember(2)]
-		public int X { get; set; }
+		public int GridIndex { get; set; }
 
-		[ProtoMember(3)]
-		public int Y { get; set; }
+		public PlayerPosition()
+		{
+			GridIndex = 1;
+		}
 	}
 }

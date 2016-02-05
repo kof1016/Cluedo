@@ -2,32 +2,55 @@
 
 namespace Common.Data
 {
+	[System.Serializable]
+	[ProtoContract]
+	public class Neighbor
+	{
+		public enum DIRECTION
+		{
+			UP,
+
+			DOWN,
+
+			LEFT,
+
+			RIGHT,
+
+			COUNT
+		}
+
+		[ProtoMember(1)]
+		public DIRECTION Dir { get; set; }
+
+		[ProtoMember(2)]
+		public int Index { get; set; }
+	}
+
+	[System.Serializable]
 	[ProtoContract]
 	public class GridData
 	{
 		[ProtoMember(1)]
-		public GRID_TYPE GridType { get; set; }
+		public int Index { get; set; }
 
 		[ProtoMember(2)]
-		public Neighbor Neighbors { get; set; }
+		public GRID_TYPE GridType { get; set; }
 
 		[ProtoMember(3)]
-		public int X { get; set; }
-
-		[ProtoMember(4)]
-		public int Y { get; set; }
+		public Neighbor[] Neighbors { get; set; }
 
 		public GridData()
 		{
-			Neighbors = new Neighbor();
+			Neighbors = new Neighbor[0];
 		}
 
-		public GridData(int x, int y, GRID_TYPE type)
+		public GridData(int index, GRID_TYPE type, Neighbor[] neighbors)
 		{
-			X = x;
-			Y = y;
+			Index = index;
+
 			GridType = type;
-			Neighbors = new Neighbor();
+
+			Neighbors = neighbors;
 		}
 	}
 }

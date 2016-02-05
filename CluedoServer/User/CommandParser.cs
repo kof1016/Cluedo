@@ -54,7 +54,7 @@ namespace User
 			{
 				foreach(var data in player_positions)
 				{
-					_View.WriteLine($"Player Id{data.Id}, x is {data.X}, y is {data.Y}");
+					_View.WriteLine($"Player Id{data.Id}, Position is {data.GridIndex}");
 				}
 			};
 		}
@@ -72,7 +72,7 @@ namespace User
 			{
 				foreach(var gridData in board)
 				{
-					_View.WriteLine($"Grid x is {gridData.X}, y is {gridData.Y}");
+					_View.WriteLine($"Grid Index is {gridData.Index}, Type is {gridData.GridType}");
 				}
 			};
 		}
